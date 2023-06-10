@@ -16,6 +16,9 @@ out/
 build
 .dist/
 
+# nestjs
+dist
+
 # misc
 .DS_Store
 *.pem
