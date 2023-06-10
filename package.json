@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0",
+  "description": "Locaze monorepo",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "turbo": "^1.10.3"
+  },
+  "engines": {
+    "node": ">=16 <18",
+    "pnpm": "8.5.1"
+  }
+}
