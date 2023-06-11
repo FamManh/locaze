@@ -15,9 +15,9 @@
     "clean:global-cache": "rimraf ./.cache",
     "clean:turbo": "rimraf --glob '**/.turbo'",
     "dev:server": "turbo dev --filter=./apps/server",
-    "build:server": "turbo dev --filter=./apps/server",
+    "build:server": "turbo build --filter=./apps/server",
     "dev:web": "turbo dev --filter=./apps/web",
-    "build:web": "turbo dev --filter=./apps/web"
+    "build:web": "turbo build --filter=./apps/web"
   },
   "keywords": [],
   "author": "locaze",
@@ -27,6 +27,7 @@
     "@commitlint/config-conventional": "^17.6.5",
     "@locaze/eslint-config": "workspace:^",
     "@types/prettier": "^2.7.3",
+    "@types/shell-quote": "^1.7.1",
     "eslint": "^8.0.1",
     "husky": "^8.0.3",
     "is-ci": "^3.0.1",

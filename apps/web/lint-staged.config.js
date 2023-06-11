@@ -10,13 +10,13 @@
 const {
   concatFilesForPrettier,
   getEslintFixCmd,
-} = require("../../lint-staged.common.js");
+} = require('../../lint-staged.common.js');
 
 /**
  * @type {Record<string, (filenames: string[]) => string | string[] | Promise<string | string[]>>}
  */
 const rules = {
-  "**/*.{js,jsx,ts,tsx,mjs,cjs}": (filenames) => {
+  '**/*.{vue,ts,mjs,cjs}': (filenames) => {
     return getEslintFixCmd({
       cwd: __dirname,
       fix: true,
@@ -25,7 +25,7 @@ const rules = {
       files: filenames,
     });
   },
-  "**/*.{json,md,mdx,css,html,yml,yaml,scss}": (filenames) => {
+  '**/*.{json,md,mdx,css,html,yml,yaml,scss}': (filenames) => {
     return [`prettier --write ${concatFilesForPrettier(filenames)}`];
   },
 };

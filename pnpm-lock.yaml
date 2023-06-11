@@ -15,6 +15,9 @@ importers:
       '@types/prettier':
         specifier: ^2.7.3
         version: 2.7.3
+      '@types/shell-quote':
+        specifier: ^1.7.1
+        version: 1.7.1
       eslint:
         specifier: ^8.0.1
         version: 8.0.1
@@ -131,6 +134,9 @@ importers:
       eslint:
         specifier: 8.42.0
         version: 8.42.0
+      rimraf:
+        specifier: 5.0.1
+        version: 5.0.1
       typescript:
         specifier: ^5.0.2
         version: 5.0.2
@@ -2418,6 +2424,13 @@ packages:
     dependencies:
       '@types/mime': 3.0.1
       '@types/node': 20.3.0
+    dev: true
+
+  /@types/shell-quote@1.7.1:
+    resolution:
+      {
+        integrity: sha512-SWZ2Nom1pkyXCDohRSrkSKvDh8QOG9RfAsrt5/NsPQC4UQJ55eG0qClA40I+Gkez4KTQ0uDUT8ELRXThf3J5jw==,
+      }
     dev: true
 
   /@types/stack-utils@2.0.1:
