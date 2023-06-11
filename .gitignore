@@ -58,3 +58,6 @@ google-services.json
 GoogleService-Info.plist
 
 tsconfig.build.tsbuildinfo
+
+# eslint
+.eslintcache
