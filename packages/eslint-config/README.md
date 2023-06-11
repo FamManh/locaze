@@ -1,9 +1,9 @@
-# @your-org/eslint-config-bases
+# @locaze/eslint-config
 
 # About
 
 Example of composable eslint config bases that can be easily shared and fine-tuned by apps and
-packages that lives in a [monorepo](https://github.com/belgattitude/nextjs-monorepo-example).
+packages that lives in a [monorepo](https://github.com/fammanh/locaze).
 
 > **Tip** the [workspace:^](https://yarnpkg.com/features/workspaces#workspace-ranges-workspace) is supported by yarn and pnpm.
 
@@ -14,7 +14,7 @@ existing base configs. For example:
 
 ```javascript
 // Workaround for https://github.com/eslint/eslint/issues/3458 (re-export of @rushstack/eslint-patch)
-require("@your-org/eslint-config-bases/patch/modern-module-resolution");
+require("@locaze/eslint-config/patch/modern-module-resolution");
 
 module.exports = {
   // Be sure to set root to true in monorepo.
@@ -24,16 +24,16 @@ module.exports = {
     tsconfigRootDir: __dirname,
     project: "tsconfig.json",
   },
-  ignorePatterns: ["**/node_modules", "**/.cache", "build", ".next"],
+  ignorePatterns: ["**/node_modules", "**/.cache", "build"],
   extends: [
-    "@your-org/eslint-config-bases/typescript",
-    "@your-org/eslint-config-bases/sonar",
-    "@your-org/eslint-config-bases/regexp",
-    "@your-org/eslint-config-bases/react",
-    "@your-org/eslint-config-bases/jest",
-    "@your-org/eslint-config-bases/rtl",
-    "@your-org/eslint-config-bases/storybook",
-    "@your-org/eslint-config-bases/playwright",
+    "@locaze/eslint-config/typescript",
+    "@locaze/eslint-config/sonar",
+    "@locaze/eslint-config/regexp",
+    "@locaze/eslint-config/react",
+    "@locaze/eslint-config/jest",
+    "@locaze/eslint-config/rtl",
+    "@locaze/eslint-config/storybook",
+    "@locaze/eslint-config/playwright",
 
     // Add specific rules for your framework if needed.
     // ie:
@@ -43,7 +43,7 @@ module.exports = {
 
     // Post configure the prettier base so there won't be
     // any conficts between eslint / prettier
-    "@your-org/eslint-config-bases/prettier",
+    "@locaze/eslint-config/prettier",
   ],
   rules: {
     // Specific global rules for your app or package
@@ -54,7 +54,7 @@ module.exports = {
 };
 ```
 
-> **Tip:** "@your-org/eslint-config-bases/prettier" must be set at the end to disable any
+> **Tip:** "@locaze/eslint-config/prettier" must be set at the end to disable any
 
 ## Bases
 
@@ -84,10 +84,10 @@ You can find the bases in [./src/bases](./src/bases).
 
 ## Prettier integration
 
-To prevent conflicts between prettier and eslint, you must re-export the prettier base from `@your-org/eslint-config-bases`.
+To prevent conflicts between prettier and eslint, you must re-export the prettier base from `@locaze/eslint-config`.
 
 ```javascript
-const { getPrettierConfig } = require("@your-org/eslint-config-bases/helpers");
+const { getPrettierConfig } = require("@locaze/eslint-config/helpers");
 module.exports = {
   ...prettierConfig,
   overrides: [
