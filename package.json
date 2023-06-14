@@ -17,7 +17,9 @@
     "dev:server": "turbo dev --filter=./apps/server",
     "build:server": "turbo build --filter=./apps/server",
     "dev:web": "turbo dev --filter=./apps/web",
-    "build:web": "turbo build --filter=./apps/web"
+    "build:web": "turbo build --filter=./apps/web",
+    "db:up": "docker compose -f ./docker/database/docker-compose.yml up -d",
+    "db:down": "docker compose -f ./docker/database/docker-compose.yml down"
   },
   "keywords": [],
   "author": "locaze",
