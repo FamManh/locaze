@@ -14,7 +14,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       username: 'postgres',
       password: 'locaze@123',
       database: 'locaze',
-      entities: [],
+      entities: [__dirname + '/../**/*.entity.{js,ts}'],
       synchronize: true,
     };
   }
