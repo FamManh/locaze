@@ -1,0 +1,14 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    restart: always
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+    environment:
+      - POSTGRES_DB=locaze
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=locaze@123

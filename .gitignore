@@ -64,3 +64,6 @@ tsconfig.build.tsbuildinfo
 
 # typescript
 tsconfig.tsbuildinfo
+
+#database
+docker/database/data
