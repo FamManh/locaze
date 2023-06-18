@@ -26,7 +26,9 @@ module.exports = {
     // Apply prettier and disable incompatible rules
     '@locaze/eslint-config/prettier',
   ],
-  rules: {},
+  rules: {
+    'prettier/prettier': ['error', { endOfLine: 'off' }],
+  },
   overrides: [
     {
       files: ['tailwind.config.ts'],
