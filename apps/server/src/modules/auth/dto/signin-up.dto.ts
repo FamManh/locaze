@@ -2,7 +2,7 @@ import { Transform } from 'class-transformer';
 import { IsEmail, IsNotEmpty, MaxLength, MinLength } from 'class-validator';
 import { lowerCaseTransformer } from '../../../utils/transformers/lower-case.transformer';
 
-export class CreateUserDto {
+export class SignUpDto {
   @Transform(lowerCaseTransformer)
   @IsEmail()
   email: string;
@@ -19,5 +19,6 @@ export class CreateUserDto {
   @IsNotEmpty()
   lastName: string;
 
-  hash: string;
+  @IsNotEmpty()
+  password: string;
 }
