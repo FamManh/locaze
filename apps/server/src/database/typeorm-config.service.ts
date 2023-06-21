@@ -21,10 +21,10 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       database: this.configService.get('database.name', {
         infer: true,
       }) as string,
-      entities: [__dirname + '/../**/*.entity.{js,ts}'],
       synchronize: this.configService.get('database.synchronize', {
         infer: true,
       }),
+      entities: [__dirname + '/../**/*.entity.{js,ts}'],
     };
   }
 }
