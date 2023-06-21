@@ -11,7 +11,7 @@
     "reset": "pnpm clean && pnpm install",
     "clean": "rm -rf node_modules && pnpm -r clean",
     "lint-staged-files": "lint-staged --allow-empty",
-    "postinstall": "is-ci || yarn husky install",
+    "postinstall": "is-ci || pnpm husky install",
     "clean:global-cache": "rimraf ./.cache",
     "clean:turbo": "rimraf --glob '**/.turbo'",
     "dev:server": "turbo dev --filter=./apps/server",
