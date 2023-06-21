@@ -11,13 +11,15 @@
     "reset": "pnpm clean && pnpm install",
     "clean": "rm -rf node_modules && pnpm -r clean",
     "lint-staged-files": "lint-staged --allow-empty",
-    "postinstall": "is-ci || yarn husky install",
+    "postinstall": "is-ci || pnpm husky install",
     "clean:global-cache": "rimraf ./.cache",
     "clean:turbo": "rimraf --glob '**/.turbo'",
     "dev:server": "turbo dev --filter=./apps/server",
     "build:server": "turbo build --filter=./apps/server",
     "dev:web": "turbo dev --filter=./apps/web",
-    "build:web": "turbo build --filter=./apps/web"
+    "build:web": "turbo build --filter=./apps/web",
+    "db:up": "docker compose -f ./docker/database/docker-compose.yml up -d",
+    "db:down": "docker compose -f ./docker/database/docker-compose.yml down"
   },
   "keywords": [],
   "author": "locaze",
