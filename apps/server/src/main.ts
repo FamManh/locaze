@@ -1,10 +1,10 @@
 import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { AppModule } from './app.module';
 import { AllConfigType } from './config/config.type';
+import { setupSwagger } from './setup-swagger';
 import validationOptions from './utils/validation-options';
 
 async function bootstrap() {
@@ -17,15 +17,13 @@ async function bootstrap() {
       exclude: ['/'],
     }
   );
-  const options = new DocumentBuilder()
-    .setTitle('Locaze')
-    .setDescription('Locaze api documentation')
-    .setVersion('1.0')
-    .addBearerAuth()
-    .build();
 
-  const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('docs', app, document);
+  const isEnableDocumentation = configService.get('app.enableDocumentation', {
+    infer: true,
+  });
+  if (isEnableDocumentation) {
+    setupSwagger(app);
+  }
   await app.listen(configService.getOrThrow('app.port', { infer: true }));
 }
 bootstrap();

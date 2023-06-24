@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { registerAs } from '@nestjs/config';
 import {
+  IsBoolean,
   IsEnum,
   IsInt,
   IsOptional,
@@ -43,6 +44,18 @@ class EnvironmentVariablesValidator {
 
   @IsString()
   @IsOptional()
+  API_VERSION: string;
+
+  @IsBoolean()
+  @IsOptional()
+  ENABLE_DOCUMENTATION: boolean;
+
+  @IsBoolean()
+  @IsOptional()
+  ENABLE_ORM_LOGS: boolean;
+
+  @IsString()
+  @IsOptional()
   APP_FALLBACK_LANGUAGE: string;
 
   @IsString()
@@ -52,7 +65,6 @@ class EnvironmentVariablesValidator {
 
 export default registerAs<AppConfig>('app', () => {
   validateConfig(process.env, EnvironmentVariablesValidator);
-
   return {
     nodeEnv: process.env.NODE_ENV || 'development',
     name: process.env.APP_NAME || 'app',
@@ -65,6 +77,13 @@ export default registerAs<AppConfig>('app', () => {
       ? parseInt(process.env.PORT, 10)
       : 3000,
     apiPrefix: process.env.API_PREFIX || 'api',
+    enableOrmLogs: process.env.ENABLE_ORM_LOGS
+      ? Boolean(process.env.ENABLE_ORM_LOGS)
+      : false,
+    enableDocumentation: process.env.ENABLE_DOCUMENTATION
+      ? Boolean(process.env.ENABLE_DOCUMENTATION)
+      : false,
+    apiVersion: process.env.API_VERSION || 'v1.0.0',
     fallbackLanguage: process.env.APP_FALLBACK_LANGUAGE || 'en',
     headerLanguage: process.env.APP_HEADER_LANGUAGE || 'x-custom-lang',
   };
