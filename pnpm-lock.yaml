@@ -160,6 +160,9 @@ importers:
       vue:
         specifier: ^3.2.47
         version: 3.2.47
+      vue-router:
+        specifier: ^4.2.2
+        version: 4.2.2(vue@3.2.47)
     devDependencies:
       '@locaze/eslint-config':
         specifier: workspace:^
@@ -11898,6 +11901,18 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /vue-router@4.2.2(vue@3.2.47):
+    resolution:
+      {
+        integrity: sha512-cChBPPmAflgBGmy3tBsjeoe3f3VOSG6naKyY5pjtrqLGbNEXdzCigFUHgBvp9e3ysAtFtEx7OLqcSDh/1Cq2TQ==,
+      }
+    peerDependencies:
+      vue: ^3.2.0
+    dependencies:
+      '@vue/devtools-api': 6.5.0
+      vue: 3.2.47
+    dev: false
 
   /vue-template-compiler@2.7.14:
     resolution:
