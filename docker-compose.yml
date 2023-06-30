@@ -1,0 +1,22 @@
+name: locaze
+
+services:
+  server:
+    container_name: server
+    profiles:
+      - donotstart
+    stdin_open: true
+    ports:
+      - target: 3000
+        published: 3000
+        protocol: tcp
+    build:
+      context: .
+      dockerfile: apps/server/Dockerfile
+      target: runner
+      args:
+        ENV: "${ENV:-dev}"
+volumes:
+  build_nextjs-app:
+  nm_nextjs-app:
+  nm_prisma:
