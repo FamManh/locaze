@@ -25,6 +25,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
         infer: true,
       }),
       entities: [__dirname + '/../**/*.entity.{js,ts}'],
+      logging: this.configService.get('app.enableOrmLogs', { infer: true }),
     };
   }
 }

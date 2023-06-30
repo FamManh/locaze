@@ -3,7 +3,7 @@ import { Transform } from 'class-transformer';
 import { IsEmail, IsNotEmpty, MaxLength, MinLength } from 'class-validator';
 import { lowerCaseTransformer } from '../../../utils/transformers/lower-case.transformer';
 
-export class CreateUserDto {
+export class UserDto {
   @ApiProperty()
   @Transform(lowerCaseTransformer)
   @IsEmail()
@@ -23,6 +23,4 @@ export class CreateUserDto {
   @ApiProperty()
   @IsNotEmpty()
   lastName: string;
-
-  hash: string;
 }

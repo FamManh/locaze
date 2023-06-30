@@ -8,6 +8,9 @@ export type AppConfig = {
   apiPrefix: string;
   fallbackLanguage: string;
   headerLanguage: string;
+  enableOrmLogs: boolean;
+  enableDocumentation: boolean;
+  apiVersion: string;
 };
 
 export type AuthConfig = {
