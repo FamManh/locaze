@@ -1,22 +1,25 @@
 name: locaze
-
 services:
   server:
-    container_name: server
-    profiles:
-      - donotstart
+    image: manh001/locaze-server:latest
     stdin_open: true
     ports:
-      - target: 3000
-        published: 3000
-        protocol: tcp
-    build:
-      context: .
-      dockerfile: apps/server/Dockerfile
-      target: runner
-      args:
-        ENV: "${ENV:-dev}"
-networks:
-  locaze:
-    name: locaze-network
-    driver: bridge
+      - 3000:3000
+    depends_on:
+      - db
+  web:
+    image: manh001/locaze-web:latest
+    stdin_open: true
+    ports:
+      - 3001:80
+  db:
+    image: postgres
+    restart: always
+    volumes:
+      - ./tmp/data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=locaze
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=locaze@123

@@ -67,3 +67,4 @@ tsconfig.tsbuildinfo
 
 #database
 docker/database/data
+tmp/*

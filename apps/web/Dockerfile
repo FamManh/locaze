@@ -13,7 +13,7 @@ RUN apk update
 WORKDIR /app
 RUN npm i -g turbo@1.10.3
 COPY . .
-RUN turbo prune --scope="@locaze/server" --docker
+RUN turbo prune --scope="@locaze/web" --scope="@locaze/web" --docker
 
 
 ###################################################################
@@ -33,24 +33,20 @@ COPY --from=turbo-prune /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
 RUN pnpm install --frozen-lockfile --ignore-scripts
 # Build the project
 COPY --from=turbo-prune /app/out/full/ .
-# COPY apps/server/deploy/$ENV/.env.$ENV ./apps/server/.env
 RUN turbo build --filter=@locaze/web
-RUN turbo build --filter=@locaze/server
-RUN pnpm --filter=@locaze/server --prod deploy pruned --ignore-scripts
 
-# https://github.com/kelektiv/node.bcrypt.js/issues/800
-RUN cd pruned && npm rebuild bcrypt
 
 ###################################################################
 # Stage 3: Extract a minimal image from the build                 #
 ###################################################################
-FROM node:16-alpine AS runner
-WORKDIR /app
+FROM nginx:1.24.0-alpine-slim AS runner
 
-COPY --from=installer /app/pruned/dist ./dist
-COPY --from=installer /app/pruned/node_modules ./node_modules
-COPY ./apps/server/.env.development .env
-EXPOSE 3000
+RUN rm -rf /usr/share/nginx/html/*
+# RUN rm /etc/nginx/conf.d/default.conf
+COPY --from=installer /app/apps/web/dist /usr/share/nginx/html
 
-# ENTRYPOINT ["tail", "-f", "/dev/null"]
-CMD [ "node","dist/main.js" ]
+# HEALTHCHECK goes here, if needed
+# ENTRYPOINT goes here, if needed
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
