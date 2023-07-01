@@ -1,0 +1,37 @@
+name: locaze
+
+services:
+  server:
+    container_name: server
+    profiles:
+      - donotstart
+    stdin_open: true
+    ports:
+      - target: 3000
+        published: 3000
+        protocol: tcp
+    build:
+      context: .
+      dockerfile: apps/server/Dockerfile
+      target: runner
+      args:
+        ENV: "${ENV:-dev}"
+  web:
+    container_name: web
+    profiles:
+      - donotstart
+    stdin_open: true
+    ports:
+      - target: 3001
+        published: 3001
+        protocol: tcp
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      target: runner
+      args:
+        ENV: "${ENV:-dev}"
+networks:
+  locaze:
+    name: locaze-network
+    driver: bridge
