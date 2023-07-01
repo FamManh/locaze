@@ -55,5 +55,8 @@ jobs:
 
       # ESLint and Prettier must be in `package.json`
       - name: Run linters
-        run: pnpm lint
+        run: turbo lint
+
+      - name: Run linters
+        run: turbo typecheck
 
