@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs,.mdx,.graphql --cache",
     "clean": "rimraf ./out ./coverage ./tsconfig.tsbuildinfo ./node_modules/.cache",
-    "typecheck": "tsc --project ./tsconfig.json --noEmit"
+    "typecheck": "vue-tsc"
   },
   "dependencies": {
     "pinia": "^2.0.34",
