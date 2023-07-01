@@ -54,9 +54,8 @@ jobs:
         run: pnpm install
 
       # ESLint and Prettier must be in `package.json`
-      - name: Run linters
-        run: turbo lint
+      - name: Run typecheck
+        run: pnpm turbo typecheck
 
       - name: Run linters
-        run: turbo typecheck
-
+        run: pnpm turbo lint
