@@ -113,7 +113,7 @@ module.exports = {
       },
       {
         selector: 'variable',
-        format: ['camelCase'],
+        format: ['camelCase', 'UPPER_CASE', 'PascalCase'],
         leadingUnderscore: 'allow',
       },
       {
@@ -161,6 +161,10 @@ module.exports = {
       {
         selector: ['typeParameter'],
         format: ['PascalCase'],
+      },
+      {
+        selector: ['enum', 'enumMember'],
+        format: ['PascalCase', 'UPPER_CASE'],
       },
     ],
   },
