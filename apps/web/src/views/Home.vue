@@ -2,5 +2,5 @@
 </script>
 
 <template>
-  <div class="text-primary-700">Home</div>
+  <main class="text-primary-700 bg-neutral-100">Home</main>
 </template>
