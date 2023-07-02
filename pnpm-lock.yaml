@@ -87,9 +87,15 @@ importers:
       dotenv:
         specifier: ^16.1.4
         version: 16.1.4
+      handlebars:
+        specifier: ^4.7.7
+        version: 4.7.7
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
+      nodemailer:
+        specifier: ^6.9.3
+        version: 6.9.3
       pg:
         specifier: ^8.11.0
         version: 8.11.0
@@ -133,6 +139,9 @@ importers:
       '@types/node':
         specifier: 18.16.12
         version: 18.16.12
+      '@types/nodemailer':
+        specifier: ^6.4.8
+        version: 6.4.8
       '@types/supertest':
         specifier: ^2.0.11
         version: 2.0.11
@@ -1578,7 +1587,7 @@ packages:
     dependencies:
       '@jest/fake-timers': 29.5.0
       '@jest/types': 29.5.0
-      '@types/node': 18.16.12
+      '@types/node': 20.3.0
       jest-mock: 29.5.0
     dev: true
 
@@ -1614,7 +1623,7 @@ packages:
     dependencies:
       '@jest/types': 29.5.0
       '@sinonjs/fake-timers': 10.2.0
-      '@types/node': 18.16.12
+      '@types/node': 20.3.0
       jest-message-util: 29.5.0
       jest-mock: 29.5.0
       jest-util: 29.5.0
@@ -2546,7 +2555,7 @@ packages:
         integrity: sha512-Sig0SNORX9fdW+bQuTEovKj3uHcUL6LQKbCrrqb1X7J6/ReAbhCXRAhc+SMejhLELFj2QcyuxmUooZ4bt5ReSw==,
       }
     dependencies:
-      '@types/node': 18.16.12
+      '@types/node': 20.3.0
     dev: true
 
   /@types/istanbul-lib-coverage@2.0.4:
@@ -2656,6 +2665,15 @@ packages:
       {
         integrity: sha512-cumHmIAf6On83X7yP+LrsEyUOf/YlociZelmpRYaGFydoaPdxdt80MAbu6vWerQT2COCp2nPvHdsbD7tHn/YlQ==,
       }
+    dev: true
+
+  /@types/nodemailer@6.4.8:
+    resolution:
+      {
+        integrity: sha512-oVsJSCkqViCn8/pEu2hfjwVO+Gb3e+eTWjg3PcjeFKRItfKpKwHphQqbYmPQrlMk+op7pNNWPbsJIEthpFN/OQ==,
+      }
+    dependencies:
+      '@types/node': 20.3.0
     dev: true
 
   /@types/normalize-package-data@2.4.1:
@@ -6960,6 +6978,22 @@ packages:
       }
     dev: true
 
+  /handlebars@4.7.7:
+    resolution:
+      {
+        integrity: sha512-aAcXm5OAfE/8IXkcZvCepKU3VzW1/39Fb5ZuqMtgI/hT8X2YgoMvBY5dLhq/cpOvw7Lk1nK/UF71aLG/ZnVYRA==,
+      }
+    engines: { node: '>=0.4.7' }
+    hasBin: true
+    dependencies:
+      minimist: 1.2.8
+      neo-async: 2.6.2
+      source-map: 0.6.1
+      wordwrap: 1.0.0
+    optionalDependencies:
+      uglify-js: 3.17.4
+    dev: false
+
   /hard-rejection@2.1.0:
     resolution:
       {
@@ -7786,7 +7820,7 @@ packages:
       '@jest/expect': 29.5.0
       '@jest/test-result': 29.5.0
       '@jest/types': 29.5.0
-      '@types/node': 18.16.12
+      '@types/node': 20.3.0
       chalk: 4.1.2
       co: 4.6.0
       dedent: 0.7.0
@@ -7927,7 +7961,7 @@ packages:
       '@jest/environment': 29.5.0
       '@jest/fake-timers': 29.5.0
       '@jest/types': 29.5.0
-      '@types/node': 18.16.12
+      '@types/node': 20.3.0
       jest-mock: 29.5.0
       jest-util: 29.5.0
     dev: true
@@ -8012,7 +8046,7 @@ packages:
     engines: { node: ^14.15.0 || ^16.10.0 || >=18.0.0 }
     dependencies:
       '@jest/types': 29.5.0
-      '@types/node': 18.16.12
+      '@types/node': 20.3.0
       jest-util: 29.5.0
     dev: true
 
@@ -8223,7 +8257,7 @@ packages:
       }
     engines: { node: '>= 10.13.0' }
     dependencies:
-      '@types/node': 18.16.12
+      '@types/node': 20.3.0
       merge-stream: 2.0.0
       supports-color: 8.1.1
     dev: true
@@ -8235,7 +8269,7 @@ packages:
       }
     engines: { node: ^14.15.0 || ^16.10.0 || >=18.0.0 }
     dependencies:
-      '@types/node': 18.16.12
+      '@types/node': 20.3.0
       jest-util: 29.5.0
       merge-stream: 2.0.0
       supports-color: 8.1.1
@@ -9144,7 +9178,6 @@ packages:
       {
         integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==,
       }
-    dev: true
 
   /node-addon-api@5.1.0:
     resolution:
@@ -9189,6 +9222,14 @@ packages:
         integrity: sha512-QzsYKWhXTWx8h1kIvqfnC++o0pEmpRQA/aenALsL2F4pqNVr7YzcdMlDij5WBnwftRbJCNJL/O7zdKaxKPHqgQ==,
       }
     dev: true
+
+  /nodemailer@6.9.3:
+    resolution:
+      {
+        integrity: sha512-fy9v3NgTzBngrMFkDsKEj0r02U7jm6XfC3b52eoNV+GCrGj+s8pt5OqhiJdWKuw51zCTdiNR/IUD1z33LIIGpg==,
+      }
+    engines: { node: '>=6.0.0' }
+    dev: false
 
   /nopt@5.0.0:
     resolution:
@@ -12040,6 +12081,17 @@ packages:
     hasBin: true
     dev: true
 
+  /uglify-js@3.17.4:
+    resolution:
+      {
+        integrity: sha512-T9q82TJI9e/C1TAxYvfb16xO120tMVFZrGA3f9/P4424DNu6ypK103y0GPFVa17yotwSyZW5iYXgjYHkGrJW/g==,
+      }
+    engines: { node: '>=0.8.0' }
+    hasBin: true
+    requiresBuild: true
+    dev: false
+    optional: true
+
   /unbox-primitive@1.0.2:
     resolution:
       {
@@ -12533,6 +12585,13 @@ packages:
       }
     engines: { node: '>=0.10.0' }
     dev: true
+
+  /wordwrap@1.0.0:
+    resolution:
+      {
+        integrity: sha512-gvVzJFlPycKc5dZN4yPkP8w7Dc37BtP1yczEneOb4uq34pXZcvrtRTmWV8W+Ume+XCxKgbjM+nevkyFPMybd4Q==,
+      }
+    dev: false
 
   /wrap-ansi@6.2.0:
     resolution:

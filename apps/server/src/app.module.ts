@@ -9,6 +9,7 @@ import { TypeOrmConfigService } from './database/typeorm-config.service';
 import { AuthModule } from './modules/auth/auth.module';
 import { ForgotModule } from './modules/forgot/forgot.module';
 import { HealthCheckModule } from './modules/health-check/health-check.module';
+import { MailerModule } from './modules/mailer/mailer.module';
 import { ProjectModule } from './modules/project/project.module';
 import { UserModule } from './modules/user/user.module';
 
@@ -30,6 +31,7 @@ import { UserModule } from './modules/user/user.module';
     HealthCheckModule,
     ProjectModule,
     ForgotModule,
+    MailerModule,
   ],
 })
 export class AppModule {}

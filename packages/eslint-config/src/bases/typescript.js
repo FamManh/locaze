@@ -164,7 +164,7 @@ module.exports = {
       },
       {
         selector: ['enum', 'enumMember'],
-        format: ['PascalCase', 'UPPER_CASE'],
+        format: ['PascalCase', 'UPPER_CASE', 'camelCase'],
       },
     ],
   },
