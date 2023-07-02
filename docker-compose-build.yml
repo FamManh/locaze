@@ -15,7 +15,7 @@ services:
       dockerfile: apps/server/Dockerfile
       target: runner
       args:
-        ENV: "${ENV:-dev}"
+        ENV: '${ENV:-dev}'
   web:
     container_name: web
     profiles:
@@ -30,7 +30,7 @@ services:
       dockerfile: apps/web/Dockerfile
       target: runner
       args:
-        ENV: "${ENV:-dev}"
+        ENV: '${ENV:-dev}'
 networks:
   locaze:
     name: locaze-network

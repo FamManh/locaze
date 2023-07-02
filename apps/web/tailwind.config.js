@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 export default {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
@@ -28,6 +29,7 @@ export default {
         800: '#1F2937',
         900: '#101010',
       },
+      white: '#fff',
     },
     fontFamily: {
       cal: 'Cal sans',
