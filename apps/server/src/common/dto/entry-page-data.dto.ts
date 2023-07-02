@@ -16,13 +16,13 @@ export class EntryPageData<T> {
 
   constructor({
     data,
-    success,
+    success = true,
     message,
     meta,
   }: {
     data: T[];
-    success: boolean;
-    message: string;
+    success?: boolean;
+    message?: string;
     meta: PageMetaDto;
   }) {
     this.data = data;
