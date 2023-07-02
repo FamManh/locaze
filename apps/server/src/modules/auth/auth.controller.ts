@@ -3,6 +3,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { EntryData } from '../../common/dto/entry-data.dto';
 import { ApiOkResponse } from '../../decorators/api-ok-response.decorator';
 import { AuthService } from './auth.service';
+import { AuthForgotPasswordDto } from './dto/auth-forgot-password.dto';
 import { SignUpResponseDto } from './dto/sign-up-response.dto';
 import { SignInDto } from './dto/signin-in.dto';
 import { SignUpDto } from './dto/signin-up.dto';
@@ -39,5 +40,13 @@ export class AuthController {
       message: 'Register successfully',
       success: true,
     });
+  }
+
+  @Post('forgot/password')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async forgotPassword(
+    @Body() forgotPasswordDto: AuthForgotPasswordDto
+  ): Promise<void> {
+    return this.service.forgotPassword(forgotPasswordDto.email);
   }
 }

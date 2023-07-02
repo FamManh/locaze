@@ -8,6 +8,8 @@ import {
 import { randomStringGenerator } from '@nestjs/common/utils/random-string-generator.util';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { ForgotService } from '../forgot/forgot.service';
+import { MailService } from '../mail/mail.service';
 import { UserStatusEnum } from '../user/enums/user-status.enum';
 import { UserService } from '../user/user.service';
 import { SignUpResponseDto } from './dto/sign-up-response.dto';
@@ -18,7 +20,9 @@ import { SignUpDto } from './dto/signin-up.dto';
 export class AuthService {
   constructor(
     private userService: UserService,
-    private jwtService: JwtService
+    private jwtService: JwtService,
+    private mailService: MailService,
+    private forgotService: ForgotService
   ) {}
 
   async signUp(payload: SignUpDto): Promise<SignUpResponseDto> {
@@ -94,7 +98,7 @@ export class AuthService {
     await user.save();
   }
 
-  async forgotEmail(email: string) {
+  async forgotPassword(email: string) {
     const user = await this.userService.findOne({ email });
 
     if (!user) {
@@ -108,5 +112,21 @@ export class AuthService {
         HttpStatus.UNPROCESSABLE_ENTITY
       );
     }
+
+    const hash = createHash('sha256')
+      .update(randomStringGenerator())
+      .digest('hex');
+
+    await this.forgotService.create({
+      hash,
+      user,
+    });
+
+    await this.mailService.forgotPassword({
+      to: email,
+      data: {
+        hash,
+      },
+    });
   }
 }

@@ -1,26 +1,33 @@
 import { Injectable } from '@nestjs/common';
-import { CreateForgotDto } from './dto/create-forgot.dto';
-import { UpdateForgotDto } from './dto/update-forgot.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { DeepPartial, Repository } from 'typeorm';
+import { FindOptions } from '../../utils/types/find-options.type';
+import { NullableType } from '../../utils/types/nullable.type';
+import { Forgot } from './entities/forgot.entity';
 
 @Injectable()
 export class ForgotService {
-  create(createForgotDto: CreateForgotDto) {
-    return 'This action adds a new forgot';
+  constructor(
+    @InjectRepository(Forgot)
+    private readonly forgotRepository: Repository<Forgot>
+  ) {}
+  async findOne(options: FindOptions<Forgot>): Promise<NullableType<Forgot>> {
+    return this.forgotRepository.findOne({
+      where: options.where,
+    });
   }
 
-  findAll() {
-    return `This action returns all forgot`;
+  async findMany(options: FindOptions<Forgot>): Promise<Forgot[]> {
+    return this.forgotRepository.find({
+      where: options.where,
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} forgot`;
+  async create(data: DeepPartial<Forgot>): Promise<Forgot> {
+    return this.forgotRepository.save(this.forgotRepository.create(data));
   }
 
-  update(id: number, updateForgotDto: UpdateForgotDto) {
-    return `This action updates a #${id} forgot`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} forgot`;
+  async softDelete(id: Forgot['id']): Promise<void> {
+    await this.forgotRepository.softDelete(id);
   }
 }
