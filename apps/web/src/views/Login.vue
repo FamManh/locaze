@@ -3,9 +3,16 @@ import logo from "../assets/logo.svg"
 import Input from "../components/common/Input.vue"
 import Button from "../components/common/Button.vue"
 import { ref } from "vue"
+import { useRouter } from "vue-router"
+import { SIGN_UP_ROUTE } from "../constants/router"
 
+const router = useRouter()
 const email = ref('')
 const password = ref('')
+
+const redirectToSignUpPage = () => {
+    router.push({ path: SIGN_UP_ROUTE })
+}
 
 const onSubmit = () => {
     console.log(email.value, password.value)
@@ -45,7 +52,8 @@ const onSubmit = () => {
         <div class="justify-start items-center gap-1 inline-flex">
             <div class="text-neutral-700 text-[14px] font-normal leading-tight">Don’t have an account?</div>
             <div class="justify-start items-center flex">
-                <div class="text-neutral-800 hover:text-neutral-600 text-[14px] font-medium leading-tight cursor-pointer">
+                <div @click="redirectToSignUpPage"
+                    class="text-neutral-800 hover:text-neutral-600 text-[14px] font-medium leading-tight cursor-pointer">
                     Create
                     an Account</div>
             </div>

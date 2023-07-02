@@ -3,9 +3,17 @@ import logo from "../assets/logo.svg"
 import Input from "../components/common/Input.vue"
 import Button from "../components/common/Button.vue"
 import { ref } from "vue"
+import { useRouter } from "vue-router"
+import { LOGIN_ROUTE } from "../constants/router"
+
+const router = useRouter()
 
 const email = ref('')
 const password = ref('')
+
+const redirectToLoginPage = () => {
+    router.push({ path: LOGIN_ROUTE })
+}
 
 const onSubmit = () => {
     console.log(email.value, password.value)
@@ -17,10 +25,10 @@ const onSubmit = () => {
         <div class="self-stretch h-[87px] flex-col justify-start items-center gap-6 flex">
             <div class="justify-start items-center gap-2 inline-flex">
                 <div class="w-6 h-[24px] relative"><img :src="logo" alt="logo" /></div>
-                <div class="text-gray-900 text-[18px] font-semibold leading-relaxed">Locaze</div>
+                <div class="text-neutral-900 text-[18px] font-semibold leading-relaxed">Locaze</div>
             </div>
             <div class="flex-col justify-start items-center gap-2 flex">
-                <div class="text-center text-gray-800 text-[30px] font-semibold leading-9 tracking-wide">Sign up your
+                <div class="text-center text-neutral-800 text-[30px] font-semibold leading-9 tracking-wide">Sign up your
                     account</div>
             </div>
         </div>
@@ -29,13 +37,12 @@ const onSubmit = () => {
             <div class="flex-col justify-start items-start gap-6 flex w-full">
 
                 <div class="h-[60px] flex-col justify-start items-start gap-2 flex w-full">
-                    <div class="text-gray-700 text-[14px] font-medium leading-none">Email Address</div>
+                    <div class="text-neutral-700 text-[14px] font-medium leading-none">Email Address</div>
                     <Input name="email" :value="email" @change="value => email = value" />
                 </div>
                 <div class="h-[66px] flex-col justify-start items-start gap-2 flex w-full">
                     <div class="self-stretch justify-between items-start items-center gap-1 inline-flex">
-                        <div class="text-gray-600 text-[14px] font-medium leading-none">Password</div>
-                        <div class="text-gray-500 text-[14px] font-medium leading-tight cursor-pointer">Forgot?</div>
+                        <div class="text-neutral-600 text-[14px] font-medium leading-none">Password</div>
                     </div>
                     <Input type="password" name="password" :value="password" @change="value => password = value" />
                 </div>
@@ -43,9 +50,11 @@ const onSubmit = () => {
             <Button>Sign up</Button>
         </form>
         <div class="justify-start items-center gap-1 inline-flex">
-            <div class="text-gray-700 text-[14px] font-normal leading-tight">Already have an account?</div>
+            <div class="text-neutral-700 text-[14px] font-normal leading-tight">Already have an account?</div>
             <div class="justify-start items-center flex">
-                <div class="text-gray-800 hover:text-gray-500 text-[14px] font-medium leading-tight cursor-pointer">Sign in</div>
+                <div @click="redirectToLoginPage"
+                    class="text-neutral-800 hover:text-neutral-600 text-[14px] font-medium leading-tight cursor-pointer">
+                    Sign in</div>
             </div>
         </div>
     </div>
