@@ -1,35 +1,32 @@
+import { ApiProperty } from '@nestjs/swagger';
 import * as bcrypt from 'bcrypt';
-import {
-  BaseEntity,
-  BeforeInsert,
-  BeforeUpdate,
-  Column,
-  DeleteDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Exclude } from 'class-transformer';
+import { BeforeInsert, BeforeUpdate, Column, Entity } from 'typeorm';
+import { EntityHelper } from '../../../common/entity-helper';
 
-// Get from env file
+// Todo: Get from env file
 const saltOrRounds = 10;
 
 @Entity()
-export class User extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class User extends EntityHelper {
   @Column()
+  @ApiProperty()
   email: string;
 
   @Column()
+  @ApiProperty()
   username: string;
 
   @Column()
+  @ApiProperty()
   firstName: string;
 
   @Column()
+  @ApiProperty()
   lastName: string;
 
   @Column({ nullable: false })
+  @Exclude({ toPlainOnly: true })
   password: string;
 
   @BeforeInsert()
@@ -37,7 +34,4 @@ export class User extends BaseEntity {
   async setPassword() {
     this.password = await bcrypt.hash(this.password, saltOrRounds);
   }
-
-  @DeleteDateColumn()
-  deletedAt: Date;
 }

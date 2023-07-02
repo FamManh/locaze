@@ -4,10 +4,9 @@ import { randomStringGenerator } from '@nestjs/common/utils/random-string-genera
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { UserService } from '../user/user.service';
+import { SignUpResponseDto } from './dto/sign-up-response.dto';
 import { SignInDto } from './dto/signin-in.dto';
 import { SignUpDto } from './dto/signin-up.dto';
-import { SignInResponse } from './types/sign-in-response.type';
-import { SignUpResponse } from './types/sign-up-response.type';
 
 @Injectable()
 export class AuthService {
@@ -16,7 +15,7 @@ export class AuthService {
     private jwtService: JwtService
   ) {}
 
-  async signUp(payload: SignUpDto): Promise<SignUpResponse> {
+  async signUp(payload: SignUpDto): Promise<SignUpResponseDto> {
     const hash = createHash('sha256')
       .update(randomStringGenerator())
       .digest('hex');
@@ -42,7 +41,7 @@ export class AuthService {
     };
   }
 
-  async signIn(payload: SignInDto): Promise<SignInResponse> {
+  async signIn(payload: SignInDto): Promise<SignUpResponseDto> {
     const user = await this.userService.findByUsername(payload.username);
     const isValidPassword = await bcrypt.compare(
       payload.password,

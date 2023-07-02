@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class EntryData<T> {
-  @ApiProperty({ isArray: true })
+  @ApiProperty()
   readonly data: T;
 
   @ApiProperty()

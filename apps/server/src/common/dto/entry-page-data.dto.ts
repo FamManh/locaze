@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { PageMetaDto } from './page-meta.dto';
 
-export class EntryData<T> {
+export class EntryPageData<T> {
   @ApiProperty({ isArray: true })
   readonly data: T[];
 
