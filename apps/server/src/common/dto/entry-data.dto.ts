@@ -12,12 +12,12 @@ export class EntryData<T> {
 
   constructor({
     data,
-    success,
+    success = true,
     message,
   }: {
     data: T;
-    success: boolean;
-    message: string;
+    success?: boolean;
+    message?: string;
   }) {
     this.data = data;
     this.success = success;
