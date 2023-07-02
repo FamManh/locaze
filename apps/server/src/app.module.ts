@@ -7,6 +7,7 @@ import authConfig from './config/auth.config';
 import databaseConfig from './config/database.config';
 import { TypeOrmConfigService } from './database/typeorm-config.service';
 import { AuthModule } from './modules/auth/auth.module';
+import { ForgotModule } from './modules/forgot/forgot.module';
 import { HealthCheckModule } from './modules/health-check/health-check.module';
 import { ProjectModule } from './modules/project/project.module';
 import { UserModule } from './modules/user/user.module';
@@ -28,6 +29,7 @@ import { UserModule } from './modules/user/user.module';
     AuthModule,
     HealthCheckModule,
     ProjectModule,
+    ForgotModule,
   ],
 })
 export class AppModule {}

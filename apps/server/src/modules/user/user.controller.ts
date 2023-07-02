@@ -53,7 +53,7 @@ export class UserController {
     description: 'Successfully',
   })
   findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
+    return this.userService.findOne({ id: +id });
   }
 
   @ApiBearerAuth()

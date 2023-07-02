@@ -10,7 +10,7 @@ import { SignUpDto } from './dto/signin-up.dto';
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly service: AuthService) {}
 
   @Post('login')
   @ApiOkResponse({
@@ -18,7 +18,7 @@ export class AuthController {
     description: 'Successfully Logged in',
   })
   async signIn(@Body() payload: SignInDto) {
-    const res = await this.authService.signIn(payload);
+    const res = await this.service.signIn(payload);
     return new EntryData({
       data: res,
       message: 'Login successfully',
@@ -33,7 +33,7 @@ export class AuthController {
     description: 'Successfully Registered',
   })
   async signUp(@Body() payload: SignUpDto) {
-    const res = await this.authService.signUp(payload);
+    const res = await this.service.signUp(payload);
     return new EntryData({
       data: res,
       message: 'Register successfully',

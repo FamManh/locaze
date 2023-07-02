@@ -1,8 +1,14 @@
 import { createHash } from 'node:crypto';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { randomStringGenerator } from '@nestjs/common/utils/random-string-generator.util';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { UserStatusEnum } from '../user/enums/user-status.enum';
 import { UserService } from '../user/user.service';
 import { SignUpResponseDto } from './dto/sign-up-response.dto';
 import { SignInDto } from './dto/signin-in.dto';
@@ -31,7 +37,7 @@ export class AuthService {
     };
 
     const accessToken = await this.jwtService.signAsync(jwtPayload);
-
+    // Todo: send email verify email
     return {
       token: {
         accessToken: accessToken,
@@ -66,5 +72,41 @@ export class AuthService {
       },
       user,
     };
+  }
+
+  async confirmEmail(hash: string): Promise<void> {
+    const user = await this.userService.findOne({
+      hash,
+    });
+
+    if (!user) {
+      throw new HttpException(
+        {
+          status: HttpStatus.NOT_FOUND,
+          error: `notFound`,
+        },
+        HttpStatus.NOT_FOUND
+      );
+    }
+
+    user.hash = null;
+    user.status = UserStatusEnum.active;
+    await user.save();
+  }
+
+  async forgotEmail(email: string) {
+    const user = await this.userService.findOne({ email });
+
+    if (!user) {
+      throw new HttpException(
+        {
+          status: HttpStatus.UNPROCESSABLE_ENTITY,
+          errors: {
+            email: 'emailNotExists',
+          },
+        },
+        HttpStatus.UNPROCESSABLE_ENTITY
+      );
+    }
   }
 }
