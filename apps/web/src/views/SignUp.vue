@@ -40,13 +40,12 @@ const onSubmit = () => {
                     <Input type="password" name="password" :value="password" @change="value => password = value" />
                 </div>
             </div>
-            <Button>Sign in</Button>
+            <Button>Sign up</Button>
         </form>
         <div class="justify-start items-center gap-1 inline-flex">
-            <div class="text-gray-700 text-[14px] font-normal leading-tight">Don’t have an account?</div>
+            <div class="text-gray-700 text-[14px] font-normal leading-tight">Already have an account?</div>
             <div class="justify-start items-center flex">
-                <div class="text-gray-800 hover:text-gray-500 text-[14px] font-medium leading-tight cursor-pointer">Create
-                    an Account</div>
+                <div class="text-gray-800 hover:text-gray-500 text-[14px] font-medium leading-tight cursor-pointer">Sign in</div>
             </div>
         </div>
     </div>
