@@ -47,8 +47,8 @@ RUN pnpm --filter=@locaze/server --prod deploy pruned --ignore-scripts
 FROM node:alpine AS runner
 WORKDIR /app
 
-COPY --from=installer apps/server/dist ./dist
-COPY --from=installer pruned/node_modules ./node_modules
+COPY --from=installer /app/pruned/node_modules ./node_modules
+COPY --from=installer /app/apps/server/dist ./dist
 EXPOSE $PORT
 
 ENTRYPOINT ["tail", "-f", "/dev/null"]
