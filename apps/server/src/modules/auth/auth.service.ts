@@ -8,10 +8,14 @@ import {
 import { randomStringGenerator } from '@nestjs/common/utils/random-string-generator.util';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { NullableType } from '../../utils/types/nullable.type';
 import { ForgotService } from '../forgot/forgot.service';
 import { MailService } from '../mail/mail.service';
+import { User } from '../user/entities/user.entity';
 import { UserStatusEnum } from '../user/enums/user-status.enum';
 import { UserService } from '../user/user.service';
+import { AuthUpdatePasswordDto } from './dto/auth-update-password.dto';
+import { AuthUpdateDto } from './dto/auth-update.dto';
 import { SignUpResponseDto } from './dto/sign-up-response.dto';
 import { SignInDto } from './dto/signin-in.dto';
 import { SignUpDto } from './dto/signin-up.dto';
@@ -127,6 +131,88 @@ export class AuthService {
       data: {
         hash,
       },
+    });
+  }
+
+  async resetPassword(hash: string, password: string) {
+    const forgot = await this.forgotService.findOne({
+      where: { hash },
+    });
+    if (!forgot) {
+      throw new HttpException(
+        {
+          status: HttpStatus.UNPROCESSABLE_ENTITY,
+          errors: {
+            hash: 'notFound',
+          },
+        },
+        HttpStatus.UNPROCESSABLE_ENTITY
+      );
+    }
+
+    const user = forgot.user;
+    user.password = password;
+    await this.forgotService.softDelete(forgot.id);
+  }
+
+  async me(user: User): Promise<NullableType<User>> {
+    return this.userService.findOne({
+      id: user.id,
+    });
+  }
+
+  async update(
+    user: User,
+    userDto: AuthUpdateDto
+  ): Promise<NullableType<User>> {
+    await this.userService.update(user.id, userDto);
+
+    return this.userService.findOne({
+      id: user.id,
+    });
+  }
+
+  async updatePassword(
+    user: User,
+    userDto: AuthUpdatePasswordDto
+  ): Promise<NullableType<User>> {
+    const currentUser = await this.userService.findOne({
+      id: user.id,
+    });
+
+    if (!currentUser) {
+      throw new HttpException(
+        {
+          status: HttpStatus.UNPROCESSABLE_ENTITY,
+          errors: {
+            user: 'userNotFound',
+          },
+        },
+        HttpStatus.UNPROCESSABLE_ENTITY
+      );
+    }
+
+    const isValidOldPassword = await bcrypt.compare(
+      userDto.oldPassword,
+      currentUser.password
+    );
+
+    if (!isValidOldPassword) {
+      throw new HttpException(
+        {
+          status: HttpStatus.UNPROCESSABLE_ENTITY,
+          errors: {
+            oldPassword: 'incorrectOldPassword',
+          },
+        },
+        HttpStatus.UNPROCESSABLE_ENTITY
+      );
+    }
+
+    await this.userService.update(user.id, userDto);
+
+    return this.userService.findOne({
+      id: user.id,
     });
   }
 }

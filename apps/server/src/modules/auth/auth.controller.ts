@@ -1,9 +1,23 @@
-import { Controller, Post, Body, HttpCode, HttpStatus } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import {
+  Controller,
+  Post,
+  Body,
+  HttpCode,
+  HttpStatus,
+  Get,
+  Request,
+  Patch,
+} from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { EntryData } from '../../common/dto/entry-data.dto';
 import { ApiOkResponse } from '../../decorators/api-ok-response.decorator';
+import { NullableType } from '../../utils/types/nullable.type';
+import { User } from '../user/entities/user.entity';
 import { AuthService } from './auth.service';
 import { AuthForgotPasswordDto } from './dto/auth-forgot-password.dto';
+import { AuthResetPasswordDto } from './dto/auth-reset-password.dto';
+import { AuthUpdatePasswordDto } from './dto/auth-update-password.dto';
+import { AuthUpdateDto } from './dto/auth-update.dto';
 import { SignUpResponseDto } from './dto/sign-up-response.dto';
 import { SignInDto } from './dto/signin-in.dto';
 import { SignUpDto } from './dto/signin-up.dto';
@@ -48,5 +62,44 @@ export class AuthController {
     @Body() forgotPasswordDto: AuthForgotPasswordDto
   ): Promise<void> {
     return this.service.forgotPassword(forgotPasswordDto.email);
+  }
+
+  @Post('reset/password')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  resetPassword(@Body() resetPasswordDto: AuthResetPasswordDto): Promise<void> {
+    return this.service.resetPassword(
+      resetPasswordDto.hash,
+      resetPasswordDto.password
+    );
+  }
+
+  @ApiBearerAuth()
+  @Get('me')
+  // Todo: AuthGuard
+  @HttpCode(HttpStatus.OK)
+  public me(@Request() request): Promise<NullableType<User>> {
+    return this.service.me(request.user);
+  }
+
+  @ApiBearerAuth()
+  @Patch('me')
+  // Todo: AuthGuard
+  @HttpCode(HttpStatus.OK)
+  public update(
+    @Request() request,
+    @Body() userDto: AuthUpdateDto
+  ): Promise<NullableType<User>> {
+    return this.service.update(request.user, userDto);
+  }
+
+  @ApiBearerAuth()
+  @Patch('me/password')
+  // Todo: AuthGuard
+  @HttpCode(HttpStatus.OK)
+  public updatePassword(
+    @Request() request,
+    @Body() userDto: AuthUpdatePasswordDto
+  ): Promise<NullableType<User>> {
+    return this.service.updatePassword(request.user, userDto);
   }
 }

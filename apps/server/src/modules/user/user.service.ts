@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { DeepPartial, Repository } from 'typeorm';
 import { EntityCondition } from '../../utils/types/entity-condition.type';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 
 @Injectable()
@@ -31,7 +30,7 @@ export class UserService {
     return this.usersRepository.findOne({ where: { username } });
   }
 
-  update(id: number, payload: UpdateUserDto) {
+  update(id: number, payload: DeepPartial<User>) {
     return this.usersRepository.save(
       this.usersRepository.create({
         id,
