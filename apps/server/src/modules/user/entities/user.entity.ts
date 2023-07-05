@@ -1,8 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 import * as bcrypt from 'bcrypt';
 import { Exclude } from 'class-transformer';
-import { BeforeInsert, BeforeUpdate, Column, Entity } from 'typeorm';
+import { BeforeInsert, BeforeUpdate, Column, Entity, Index } from 'typeorm';
 import { EntityHelper } from '../../../common/entity-helper';
+import { RoleType } from '../../../constants';
+import { UserStatusEnum } from '../enums/user-status.enum';
 
 // Todo: Get from env file
 const saltOrRounds = 10;
@@ -29,9 +31,24 @@ export class User extends EntityHelper {
   @Exclude({ toPlainOnly: true })
   password: string;
 
+  @Column({ type: String, nullable: true })
+  @Index()
+  @Exclude({ toPlainOnly: true })
+  hash: string | null;
+
+  @Column({
+    type: 'enum',
+    enum: UserStatusEnum,
+    default: UserStatusEnum.inactive,
+  })
+  status: UserStatusEnum;
+
   @BeforeInsert()
   @BeforeUpdate()
   async setPassword() {
     this.password = await bcrypt.hash(this.password, saltOrRounds);
   }
+
+  @Column({ type: 'enum', enum: RoleType, default: RoleType.USER })
+  role: RoleType;
 }
