@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import { registerAs } from '@nestjs/config';
 import {
   IsOptional,

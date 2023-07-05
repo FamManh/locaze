@@ -3,6 +3,7 @@ import * as bcrypt from 'bcrypt';
 import { Exclude } from 'class-transformer';
 import { BeforeInsert, BeforeUpdate, Column, Entity, Index } from 'typeorm';
 import { EntityHelper } from '../../../common/entity-helper';
+import { RoleType } from '../../../constants';
 import { UserStatusEnum } from '../enums/user-status.enum';
 
 // Todo: Get from env file
@@ -47,4 +48,7 @@ export class User extends EntityHelper {
   async setPassword() {
     this.password = await bcrypt.hash(this.password, saltOrRounds);
   }
+
+  @Column({ type: 'enum', enum: RoleType, default: RoleType.USER })
+  role: RoleType;
 }

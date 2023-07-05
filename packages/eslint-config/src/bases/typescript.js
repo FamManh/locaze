@@ -118,7 +118,7 @@ module.exports = {
       },
       {
         selector: ['function'],
-        format: ['camelCase'],
+        format: ['camelCase', 'PascalCase'],
       },
       {
         selector: 'parameter',
@@ -131,7 +131,7 @@ module.exports = {
       },
       {
         selector: 'classProperty',
-        format: ['camelCase'],
+        format: ['camelCase', 'UPPER_CASE'],
         leadingUnderscore: 'allow',
       },
       {

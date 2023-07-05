@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import { registerAs } from '@nestjs/config';
 import { IsString } from 'class-validator';
 import validateConfig from '../utils/validate-config';
