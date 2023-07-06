@@ -8,6 +8,7 @@ import {
 import { randomStringGenerator } from '@nestjs/common/utils/random-string-generator.util';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { TokenType } from '../../constants';
 import { NullableType } from '../../utils/types/nullable.type';
 import { ForgotService } from '../forgot/forgot.service';
 import { MailService } from '../mail/mail.service';
@@ -68,7 +69,8 @@ export class AuthService {
 
     const jwtPayload = {
       sub: user.id,
-      username: user.username,
+      role: user.role,
+      type: TokenType.ACCESS_TOKEN,
     };
 
     const accessToken = await this.jwtService.signAsync(jwtPayload);
