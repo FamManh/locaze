@@ -5,12 +5,14 @@ import {
   HttpCode,
   HttpStatus,
   Get,
-  Request,
   Patch,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
 import { EntryData } from '../../common/dto/entry-data.dto';
+import { RoleType } from '../../constants';
 import { ApiOkResponse } from '../../decorators/api-ok-response.decorator';
+import { AuthUser } from '../../decorators/auth-user.decorator';
+import { Auth } from '../../decorators/http.decorators';
 import { NullableType } from '../../utils/types/nullable.type';
 import { User } from '../user/entities/user.entity';
 import { AuthService } from './auth.service';
@@ -73,33 +75,30 @@ export class AuthController {
     );
   }
 
-  @ApiBearerAuth()
   @Get('me')
-  // Todo: AuthGuard
   @HttpCode(HttpStatus.OK)
-  public me(@Request() request): Promise<NullableType<User>> {
-    return this.service.me(request.user);
+  @Auth([RoleType.USER])
+  public me(@AuthUser() user: User): Promise<NullableType<User>> {
+    return this.service.me(user);
   }
 
-  @ApiBearerAuth()
   @Patch('me')
-  // Todo: AuthGuard
   @HttpCode(HttpStatus.OK)
+  @Auth([RoleType.USER])
   public update(
-    @Request() request,
+    @AuthUser() user: User,
     @Body() userDto: AuthUpdateDto
   ): Promise<NullableType<User>> {
-    return this.service.update(request.user, userDto);
+    return this.service.update(user, userDto);
   }
 
-  @ApiBearerAuth()
   @Patch('me/password')
-  // Todo: AuthGuard
   @HttpCode(HttpStatus.OK)
+  @Auth([RoleType.USER])
   public updatePassword(
-    @Request() request,
+    @AuthUser() user: User,
     @Body() userDto: AuthUpdatePasswordDto
   ): Promise<NullableType<User>> {
-    return this.service.updatePassword(request.user, userDto);
+    return this.service.updatePassword(user, userDto);
   }
 }

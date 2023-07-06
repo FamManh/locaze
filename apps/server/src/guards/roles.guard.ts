@@ -1,7 +1,7 @@
 import type { CanActivate, ExecutionContext } from '@nestjs/common';
 import { Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import _ from 'lodash';
+import { isEmpty } from 'lodash';
 
 import type { RoleType } from '../constants';
 import { User } from '../modules/user/entities/user.entity';
@@ -13,7 +13,7 @@ export class RolesGuard implements CanActivate {
   canActivate(context: ExecutionContext): boolean {
     const roles = this.reflector.get<RoleType[]>('roles', context.getHandler());
 
-    if (_.isEmpty(roles)) {
+    if (isEmpty(roles)) {
       return true;
     }
 
