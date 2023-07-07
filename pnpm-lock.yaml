@@ -69,6 +69,9 @@ importers:
       '@nestjs/platform-express':
         specifier: ^9.0.0
         version: 9.0.0(@nestjs/common@9.0.0)(@nestjs/core@9.0.0)
+      '@nestjs/serve-static':
+        specifier: ^4.0.0
+        version: 4.0.0(@nestjs/common@9.0.0)(@nestjs/core@9.0.0)(express@4.18.2)
       '@nestjs/swagger':
         specifier: ^7.0.2
         version: 7.0.2(@nestjs/common@9.0.0)(@nestjs/core@9.0.0)(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)
@@ -2103,6 +2106,31 @@ packages:
     transitivePeerDependencies:
       - chokidar
     dev: true
+
+  /@nestjs/serve-static@4.0.0(@nestjs/common@9.0.0)(@nestjs/core@9.0.0)(express@4.18.2):
+    resolution:
+      {
+        integrity: sha512-8cTrNV2ngdHIjiLNsXePnw0+KY1ThrZGz/WeyAG5gIvmZNDbnZBOrPoYlKL+MOzlXlQStxR5jKLYmn+nJeoncQ==,
+      }
+    peerDependencies:
+      '@fastify/static': ^6.5.0
+      '@nestjs/common': ^9.0.0 || ^10.0.0
+      '@nestjs/core': ^9.0.0 || ^10.0.0
+      express: ^4.18.1
+      fastify: ^4.7.0
+    peerDependenciesMeta:
+      '@fastify/static':
+        optional: true
+      express:
+        optional: true
+      fastify:
+        optional: true
+    dependencies:
+      '@nestjs/common': 9.0.0(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.1)
+      '@nestjs/core': 9.0.0(@nestjs/common@9.0.0)(@nestjs/platform-express@9.0.0)(reflect-metadata@0.1.13)(rxjs@7.8.1)
+      express: 4.18.2
+      path-to-regexp: 0.2.5
+    dev: false
 
   /@nestjs/swagger@7.0.2(@nestjs/common@9.0.0)(@nestjs/core@9.0.0)(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13):
     resolution:
@@ -9903,6 +9931,13 @@ packages:
       {
         integrity: sha512-5DFkuoqlv1uYQKxy8omFBeJPQcdoE07Kv2sferDCrAq1ohOU+MSDswDIbnx3YAM60qIOnYa53wBhXW0EbMonrQ==,
       }
+
+  /path-to-regexp@0.2.5:
+    resolution:
+      {
+        integrity: sha512-l6qtdDPIkmAmzEO6egquYDfqQGPMRNGjYtrU13HAXb3YSRrt7HSb1sJY0pKp6o2bAa86tSB6iwaW2JbthPKr7Q==,
+      }
+    dev: false
 
   /path-to-regexp@3.2.0:
     resolution:
