@@ -1,7 +1,7 @@
 import type { INestApplication } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
-export function setupSwagger(app: INestApplication): void {
+export function setupSwagger(app: INestApplication, path: string): void {
   const documentBuilder = new DocumentBuilder()
     .setTitle('Locaze API')
     .setDescription(
@@ -55,11 +55,13 @@ Routes is following REST standard (Richardson level 3)
   }
 
   const document = SwaggerModule.createDocument(app, documentBuilder.build());
-  SwaggerModule.setup('docs', app, document, {
+  SwaggerModule.setup(path, app, document, {
     swaggerOptions: {
       persistAuthorization: true,
     },
   });
 
-  console.info(`Documentation: http://localhost:${process.env.APP_PORT}/docs`);
+  console.info(
+    `Documentation: http://localhost:${process.env.APP_PORT}/${path}`
+  );
 }

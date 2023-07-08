@@ -1,6 +1,22 @@
 name: locaze
 
 services:
+  locaze:
+    image: manh001/locaze
+    container_name: locaze
+    profiles:
+      - donotstart
+    stdin_open: true
+    ports:
+      - target: 3000
+        published: 3000
+        protocol: tcp
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runner
+      args:
+        ENV: '${ENV:-development}'
   server:
     container_name: server
     profiles:

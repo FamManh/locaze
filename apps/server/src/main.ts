@@ -10,19 +10,17 @@ import validationOptions from './utils/validation-options';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService<AllConfigType>);
+  const apiPrefix = configService.getOrThrow('app.apiPrefix', { infer: true });
   app.useGlobalPipes(new ValidationPipe(validationOptions));
-  app.setGlobalPrefix(
-    configService.getOrThrow('app.apiPrefix', { infer: true }),
-    {
-      exclude: ['/'],
-    }
-  );
+  app.setGlobalPrefix(apiPrefix, {
+    exclude: ['/'],
+  });
 
   const isEnableDocumentation = configService.get('app.enableDocumentation', {
     infer: true,
   });
   if (isEnableDocumentation) {
-    setupSwagger(app);
+    setupSwagger(app, `${apiPrefix}/docs`);
   }
   await app.listen(configService.getOrThrow('app.port', { infer: true }));
 }
