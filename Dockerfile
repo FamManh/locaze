@@ -5,10 +5,15 @@
 #   1. depend on .dockerignore, you must at least                 #
 #      ignore: all **/node_modules folders, ...                   #
 ###################################################################
-FROM node:16-alpine AS base
-RUN apk add --no-cache libc6-compat
-RUN apk update
-RUN npm i -g pnpm@8.5.1 turbo@1.10.3
+FROM node:16-buster-slim AS base
+RUN apt-get update && \
+    apt-get --yes --no-install-recommends install python3 python3-pip python3-cryptography python3-six python3-yaml python3-click python3-markdown python3-requests python3-requests-oauthlib \
+        sqlite3 iputils-ping util-linux dumb-init git curl ca-certificates && \
+    pip3 --no-cache-dir install apprise==1.4.0 && \
+    rm -rf /var/lib/apt/lists/* && \
+    apt --yes autoremove
+RUN npm i -g pnpm@8.5.1
+RUN npm i -g turbo@1.10.3
 
 ###################################################################
 # Stage 2: Create pruned version of locaze/server app             #
@@ -63,7 +68,7 @@ RUN turbo build --filter=@locaze/web
 ###################################################################
 # Stage 4: Extract a minimal image from the build                 #
 ###################################################################
-FROM node:16-alpine AS runner
+FROM node:16-buster-slim AS runner
 WORKDIR /app
 
 COPY --from=server-builder /app/pruned/node_modules ./node_modules
