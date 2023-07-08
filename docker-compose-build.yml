@@ -2,6 +2,7 @@ name: locaze
 
 services:
   locaze:
+    image: manh001/locaze
     container_name: locaze
     profiles:
       - donotstart
