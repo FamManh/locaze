@@ -47,9 +47,20 @@ export type MailConfig = {
   requireTLS: boolean;
 };
 
+export type FileConfig = {
+  driver: string;
+  accessKeyId?: string;
+  secretAccessKey?: string;
+  awsDefaultS3Bucket?: string;
+  awsDefaultS3Url?: string;
+  awsS3Region?: string;
+  maxFileSize: number;
+};
+
 export type AllConfigType = {
   app: AppConfig;
   auth: AuthConfig;
   database: DatabaseConfig;
   mail: MailConfig;
+  file: FileConfig;
 };
