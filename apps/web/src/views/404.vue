@@ -2,5 +2,5 @@
 </script>
 
 <template>
-  <div>NotFound</div>
+  <main>NotFound</main>
 </template>
