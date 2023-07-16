@@ -1,6 +1,7 @@
 
 <script setup lang="ts">
-import logoURL from '../assets/images/logo.jpg'
+import logo from "../assets/logo.svg"
+
 import AvatarDefaultURL from '../assets/images/Avatar.png'
 
 import dashboardIcon from '../assets/icons/dashboard.svg'
@@ -15,20 +16,21 @@ import { ref } from 'vue'
 
 const isShowMenu = ref(false)
 
-const ToggleMenu = () => {
+const toggleMenu = () => {
   isShowMenu.value = !isShowMenu.value
 }
 
 </script>
 
 <template>
-  <nav class="flex flex-row md:flex-col justify-between items-center md:items-start gap-2 p-4 md:h-screen md:min-w-[223px] shadow-md">
-    <span class="md:hidden cursor-pointer" @click="ToggleMenu">
+  <nav
+    class="flex flex-row md:flex-col justify-between items-center md:items-start gap-2 p-4 md:h-screen md:min-w-[223px] shadow-md">
+    <span class="md:hidden cursor-pointer" @click="toggleMenu">
       <img :src="menuIcon" alt="Menu Icon" />
     </span>
     <div>
       <router-link to="/" class="text-primary-500">
-        <img :src="logoURL" alt="Logo"/>
+        <div class="w-32 relative"><img :src="logo" alt="logo" /></div>
       </router-link>
     </div>
     <ul class="hidden md:block flex-grow">
@@ -78,7 +80,7 @@ const ToggleMenu = () => {
           Alex Fisher
         </div>
         <div class="text-xs font-normal text-primary-100">
-          cal.com/attio
+          locaze.site/alex
         </div>
       </div>
       <div class="hidden md:block">
@@ -88,5 +90,4 @@ const ToggleMenu = () => {
   </nav>
 </template>
 
-<style lang="css" scoped>
-</style>
+<style lang="css" scoped></style>
