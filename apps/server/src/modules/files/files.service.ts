@@ -1,8 +1,14 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { AllConfigType } from '../../config/config.type';
+import { User } from '../user/entities/user.entity';
 import { File } from './entities/file.entity';
 import { FileProviderEnum } from './enums/file-provider.enum';
 
@@ -14,7 +20,20 @@ export class FilesService {
     private readonly fileRepository: Repository<File>
   ) {}
 
-  async uploadFile(file: Express.Multer.File | Express.MulterS3.File) {
+  async findOne(id: number) {
+    const project = await this.fileRepository.findOneOrFail({
+      where: { id },
+    });
+    if (!project) {
+      throw new NotFoundException();
+    }
+    return project;
+  }
+
+  async uploadFile(
+    file: Express.Multer.File | Express.MulterS3.File,
+    user: User
+  ) {
     if (!file) {
       throw new HttpException(
         {
@@ -48,6 +67,7 @@ export class FilesService {
         ...payload[
           this.configService.getOrThrow('file.driver', { infer: true })
         ],
+        user,
       })
     );
   }

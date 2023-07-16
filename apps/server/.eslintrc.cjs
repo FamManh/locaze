@@ -7,7 +7,6 @@
 require('@locaze/eslint-config/patch/modern-module-resolution');
 
 const { getDefaultIgnorePatterns } = require('@locaze/eslint-config/helpers');
-console.log({ __dirname });
 module.exports = {
   root: true,
   parserOptions: {

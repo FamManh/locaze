@@ -1,6 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { FilesService } from '../files/files.service';
+import { User } from '../user/entities/user.entity';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { Project } from './entities/project.entity';
@@ -9,22 +11,25 @@ import { Project } from './entities/project.entity';
 export class ProjectService {
   constructor(
     @InjectRepository(Project)
-    private projectRepository: Repository<Project>
+    private projectRepository: Repository<Project>,
+    private fileService: FilesService
   ) {}
 
-  create(createProjectDto: CreateProjectDto) {
+  async create(createProjectDto: CreateProjectDto, user: User) {
+    const image = await this.fileService.findOne(createProjectDto.image);
     return this.projectRepository.save(
-      this.projectRepository.create(createProjectDto)
+      this.projectRepository.create({ ...createProjectDto, image, user })
     );
   }
 
   findAll() {
-    return this.projectRepository.find();
+    return this.projectRepository.find({ relations: ['image', 'user'] });
   }
 
   async findOne(id: number) {
     const project = await this.projectRepository.findOneOrFail({
       where: { id },
+      relations: ['image', 'user'],
     });
     if (!project) {
       throw new NotFoundException();
@@ -32,11 +37,13 @@ export class ProjectService {
     return project;
   }
 
-  update(id: number, updateProjectDto: UpdateProjectDto) {
+  async update(id: number, updateProjectDto: UpdateProjectDto) {
+    const image = await this.fileService.findOne(updateProjectDto.image);
     return this.projectRepository.save(
       this.projectRepository.create({
         id,
         ...updateProjectDto,
+        image,
       })
     );
   }
