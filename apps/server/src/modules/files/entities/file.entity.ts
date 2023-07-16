@@ -6,7 +6,7 @@ import {
   Column,
   Entity,
   JoinColumn,
-  OneToOne,
+  ManyToOne,
 } from 'typeorm';
 import { EntityHelper } from '../../../common/entity-helper';
 import appConfig from '../../../config/app.config';
@@ -39,7 +39,7 @@ export class File extends EntityHelper {
   })
   provider: FileProviderEnum;
 
-  @OneToOne(() => User)
+  @ManyToOne(() => User)
   @JoinColumn()
   user?: User | null;
 
