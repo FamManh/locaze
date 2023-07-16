@@ -59,7 +59,9 @@ export class ProjectController {
     description: 'Successfully',
   })
   async findOne(@Param('id') id: string) {
-    const data = await this.projectService.findOne(+id);
+    const data = await this.projectService.findOne({
+      id: +id,
+    });
     return new EntryData({
       data,
     });

@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { EntityCondition } from '../../utils/types/entity-condition.type';
 import { FilesService } from '../files/files.service';
 import { User } from '../user/entities/user.entity';
 import { CreateProjectDto } from './dto/create-project.dto';
@@ -26,9 +27,9 @@ export class ProjectService {
     return this.projectRepository.find({ relations: ['image', 'user'] });
   }
 
-  async findOne(id: number) {
+  async findOne(fields: EntityCondition<Project>) {
     const project = await this.projectRepository.findOneOrFail({
-      where: { id },
+      where: fields,
       relations: ['image', 'user'],
     });
     if (!project) {
@@ -41,8 +42,8 @@ export class ProjectService {
     const image = await this.fileService.findOne(updateProjectDto.image);
     return this.projectRepository.save(
       this.projectRepository.create({
-        id,
         ...updateProjectDto,
+        id,
         image,
       })
     );
