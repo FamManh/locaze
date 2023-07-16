@@ -23,8 +23,7 @@ const onSubmit = () => {
     <div class="w-[448px] h-[467px] flex-col justify-start items-center gap-8 inline-flex">
         <div class="self-stretch h-[87px] flex-col justify-start items-center gap-6 flex">
             <div class="justify-start items-center gap-2 inline-flex">
-                <div class="w-6 h-[24px] relative"><img :src="logo" alt="logo" /></div>
-                <div class="text-neutral-900 text-[18px] font-semibold leading-relaxed">Locaze</div>
+                <div class="w-36 relative"><img :src="logo" alt="logo" /></div>
             </div>
             <div class="flex-col justify-start items-center gap-2 flex">
                 <div class="text-center text-neutral-800 text-[30px] font-semibold leading-9 tracking-wide">Sign in to your
