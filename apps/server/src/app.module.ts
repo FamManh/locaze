@@ -13,6 +13,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { FilesModule } from './modules/files/files.module';
 import { ForgotModule } from './modules/forgot/forgot.module';
 import { HealthCheckModule } from './modules/health-check/health-check.module';
+import { LanguageModule } from './modules/language/language.module';
 import { MailModule } from './modules/mail/mail.module';
 import { MailerModule } from './modules/mailer/mailer.module';
 import { ProjectModule } from './modules/project/project.module';
@@ -48,6 +49,7 @@ import { UserModule } from './modules/user/user.module';
     MailerModule,
     MailModule,
     FilesModule,
+    LanguageModule,
   ],
 })
 export class AppModule {}
