@@ -98,5 +98,6 @@ import { FilesService } from './files.service';
   ],
   controllers: [FilesController],
   providers: [FilesService, ConfigService, ConfigModule],
+  exports: [FilesService],
 })
 export class FilesModule {}

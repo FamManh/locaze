@@ -1,5 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsNotEmpty, MaxLength, MinLength } from 'class-validator';
+import {
+  IsBoolean,
+  IsInt,
+  IsNotEmpty,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
 
 export class CreateProjectDto {
   @IsNotEmpty()
@@ -17,4 +23,8 @@ export class CreateProjectDto {
   @ApiProperty()
   @IsBoolean()
   private: boolean;
+
+  @IsInt()
+  @ApiProperty()
+  image: number;
 }
