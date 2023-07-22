@@ -73,9 +73,12 @@ WORKDIR /app
 
 COPY --from=server-builder /app/pruned/node_modules ./node_modules
 COPY --from=server-builder /app/pruned/dist ./dist
+COPY --from=server-builder /app/pruned/package.json ./package.json
 COPY --from=web-builder /app/apps/web/dist ./html
-# COPY ./apps/server/.env.development .env
+
+COPY ./wait-for-it.sh /opt/wait-for-it.sh
+COPY ./startup.sh /opt/startup.sh
+
 EXPOSE 3000
 
-# ENTRYPOINT ["tail", "-f", "/dev/null"]
-CMD [ "node","dist/main.js" ]
+CMD [ "/opt/startup.sh" ]
